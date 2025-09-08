@@ -1,0 +1,17 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [],  // Puedes dejar esto vacío si no deseas incluir tipos globales adicionales
+    "lib": ["es2015", "es2020", "dom"],  // Agrega las bibliotecas necesarias para tipos modernos
+    "skipLibCheck": true  // Esto ayuda a evitar errores con tipos de bibliotecas de terceros
+  },
+  "files": [
+    "./src/main.ts",
+    "./src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

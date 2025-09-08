@@ -1,0 +1,41 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Inicio" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<!-- Ejemplo de contenido condicional basado en el tipo de usuario -->
+<div *ngIf="userType === 1">
+  <!-- Contenido exclusivo para usuarios de tipo 1 -->
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body fs-14">
+          <h2 class="text-primary">Programa de Gestión de Diversidad de Maíz</h2>
+          <p class="text-justify mx-2">La diversidad del maíz es uno de los patrimonios biológicos y culturales más valiosos de muchas regiones del mundo. En este contexto, hemos desarrollado un innovador programa de gestión de diversidad de maíz que combina ciencia, tecnología y conservación para facilitar el estudio, la organización y el aprovechamiento sostenible de las distintas variedades de este grano milenario.</p>
+          <p class="text-justify mx-2">Este programa permite identificar y registrar de manera automatizada las características morfológicas del maíz, como el tamaño y los colores predominantes en sus tres principales partes: mazorca, tusa y grano. Todo esto se realiza a partir de una lectura inicial de la variedad a través de un código QR, lo que agiliza el proceso de catalogación y evita errores humanos.</p>
+          <p class="text-justify mx-2">Una de las fortalezas del sistema es el uso de modelos de segmentación avanzados, una técnica basada en inteligencia artificial que permite analizar imágenes y reconocer automáticamente los elementos de interés en cada muestra. Esto no solo optimiza la precisión del análisis, sino que también permite procesar grandes volúmenes de datos en poco tiempo.</p>
+         <h4 class="text-primary">Características clave del programa:</h4>
+          <ul>
+            <li class="">🌽 Segmentación precisa de mazorca, tuz y grano usando inteligencia artificial.</li>
+            <li class="">📷 Lectura automatizada de características morfológicas (tamaño y color) desde imágenes.</li>
+            <li class="">🔍 Clasificación de tres colores dominantes por parte analizada.</li>
+            <li class="">📎 Identificación por código QR, permitiendo registrar múltiples variedades con rapidez.</li>
+            <li class="">🧬 Preservación de la diversidad genética del maíz de forma digital.</li>
+            <li class="">📊 Datos organizados para investigación, enseñanza y uso agrícola.</li>
+          </ul>
+          <p class="text-justify mx-2">Este programa representa un paso importante hacia una agricultura más inteligente y consciente del valor de su biodiversidad, y pone la tecnología al servicio de una causa profundamente ligada a nuestras raíces culturales y alimentarias.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-img">
+          <img src="assets/images/principal.png" alt="" class="img-fluid">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1"></div>
+  </div>
+  
+</div>

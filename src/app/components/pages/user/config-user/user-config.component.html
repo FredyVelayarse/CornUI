@@ -1,0 +1,442 @@
+<div class="position-relative mx-n4 mt-n4">
+    <div class="profile-wid-bg profile-setting-img">
+        <img src="assets/images/profile-bg.jpg" class="profile-wid-img" alt="">
+        <div class="overlay-content">
+            <div class="text-end p-3">
+                <div class="p-0 ms-auto rounded-circle profile-photo-edit">
+                    <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
+                        <i class="ri-arrow-left-line align-bottom me-1"></i><a href="/user-detail/{{userLoging.id}}">Regresar</a> 
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="userLoging; else noUser">
+    <div class="col-xxl-3" >
+        <div class="card bg-white mt-n5">
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+                        <img src="assets/images/users/user-dummy-img.jpg" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
+                        <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                            <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
+                            </label>
+                        </div>
+                    </div>
+                    <h5 class="fs-16 mb-1">{{userLoging.names}} {{userLoging.lastName}}</h5>
+                    <p class="text-white text-opacity-75">
+                        <ng-container [ngSwitch]="userLoging.typeUser">
+                            <span *ngSwitchCase="1" class="badge bg-primary">Administrador</span>
+                            <span *ngSwitchCase="2" class="badge bg-info">Director</span>
+                            <span *ngSwitchCase="3" class="badge bg-warning">Estudiante</span>
+                            <span *ngSwitchCase="4" class="badge bg-secondary">Docente</span>
+                            <span *ngSwitchDefault class="badge bg-danger">Sin acceso</span>
+                        </ng-container>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+    </div>
+    <!--end col-->
+    <div class="col-xxl-9">
+        <div class="card bg-white mt-xxl-n5">
+            <div class="card-header">
+                <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#changeDetail" role="tab">
+                            <i class="far fa-user"></i>Editar datos
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab">
+                            <i class="far fa-user"></i>Cambiar contraseña
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="card-body p-4">
+                <div class="tab-content">
+
+                    <div class="tab-pane active" id="changeDetail" role="tabpanel">
+                        <form  [formGroup]="validationform" (ngSubmit)="modifyUser()">
+                            <div class="row g-2">
+                                <h5 class="fs-14 mb-3 text-muted mt-4">Datos de usuario</h5>
+                                <span>
+                                    <div class="row  mb-2">
+                                        <div class="col-6">
+                                            <input type="number" class="d-none"  id="validationCustom011" required formControlName="id" 
+                                                [ngClass]="{'is-invalid': validationform.get('id')?.invalid && validationform.get('id')?.touched, 'is-valid': validationform.get('id')?.valid}">
+                                            <input type="number" class="d-none"  id="validationCustom012" required formControlName="typeUser" 
+                                            [ngClass]="{'is-invalid': validationform.get('typeUser')?.invalid && validationform.get('typeUser')?.touched, 'is-valid': validationform.get('typeUser')?.valid}">
+                                            <label for="validationCustom01" class="form-label">Nombres</label>
+                                            <input type="text" class="form-control" id="validationCustom01" required formControlName="names"
+                                                [ngClass]="{'is-invalid': validationform.get('names')?.invalid && validationform.get('names')?.touched, 'is-valid': validationform.get('names')?.valid}">
+                                            <div class="valid-feedback">
+                                                ¡Correcto!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <span>Error: verificar campo.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="validationCustom02" class="form-label">Apellidos</label>
+                                            <input type="text" class="form-control" id="validationCustom02" formControlName="lastName" 
+                                                [ngClass]="{'is-invalid': validationform.get('lastName')?.invalid && validationform.get('lastName')?.touched, 'is-valid': validationform.get('lastName')?.valid}">
+                                            <div class="valid-feedback">
+                                                ¡Correcto!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <span>Error: verificar campo.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <label for="validationCustom03" class="form-label">Nombre de usuario</label>
+                                            <input type="text" class="form-control" id="validationCustom03" formControlName="nameUser" 
+                                                [ngClass]="{'is-invalid': validationform.get('nameUser')?.invalid && validationform.get('nameUser')?.touched, 'is-valid': validationform.get('nameUser')?.valid}">
+                                            <div class="valid-feedback">
+                                                ¡Correcto!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <span>Error: verificar campo.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="validationCustom04" class="form-label">Contacto</label>
+                                            <input type="text" class="form-control"  id="validationCustom04" formControlName="contac" 
+                                                [ngClass]="{'is-invalid': validationform.get('contac')?.invalid && validationform.get('contac')?.touched, 'is-valid': validationform.get('contac')?.valid}">
+                                            <div class="valid-feedback">
+                                                ¡Correcto!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <span>Error: verificar campo.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="validationCustom05" class="form-label">Documento de identidad </label>
+                                            <input type="text" class="form-control"  id="validationCustom05" formControlName="dni" 
+                                                [ngClass]="{'is-invalid': validationform.get('dni')?.invalid && validationform.get('dni')?.touched, 'is-valid': validationform.get('dni')?.valid}">
+                                            <div class="valid-feedback">
+                                                ¡Correcto!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <span>Error: verificar campo.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="validationCustom06" class="form-label">Dirección</label>
+                                            <input type="text" class="form-control" id="validationCustom06" formControlName="address" 
+                                                [ngClass]="{'is-invalid': validationform.get('address')?.invalid && validationform.get('address')?.touched, 'is-valid': validationform.get('address')?.valid}">
+                                            <div class="valid-feedback">
+                                                ¡Correcto!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                <span>Error: verificar campo.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                
+                                <ng-container [ngSwitch]="userLoging.typeUser">
+                                    <span *ngSwitchCase="1" class="d-none">
+                                        <div class="row ">
+                                            <div class="col-6">
+                                                <label for="validationCustom08" class="form-label">Codigo de estudiante</label>
+                                                <input type="text" class="form-control" id="validationCustom08" formControlName="detail3" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail3')?.invalid && validationform.get('detail3')?.touched, 'is-valid': validationform.get('detail3')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="validationCustom09" class="form-label">Escuela Profesional</label>
+                                                <input type="text" class="form-control"  id="validationCustom09" formControlName="detail2" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail2')?.invalid && validationform.get('detail2')?.touched, 'is-valid': validationform.get('detail2')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="validationCustom010" class="form-label">Facultad</label>
+                                                <input type="text" class="form-control" [(ngModel)]="objUserUp.detail1"
+                                                    id="validationCustom10" formControlName="detail1" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail1')?.invalid && validationform.get('detail1')?.touched, 'is-valid': validationform.get('detail1')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <span *ngSwitchCase="2">
+                                        <div class="d-none row">
+                                            <div class="col-6">
+                                                <label for="validationCustom08" class="form-label">Codigo de estudiante</label>
+                                                <input type="text" class="form-control" id="validationCustom08" formControlName="dni" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail3')?.invalid && validationform.get('detail3')?.touched, 'is-valid': validationform.get('detail3')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="validationCustom09" class="form-label">Escuela Profesional</label>
+                                                <input type="text" class="form-control" id="validationCustom09" formControlName="detail2" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail2')?.invalid && validationform.get('detail2')?.touched, 'is-valid': validationform.get('detail2')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="validationCustom010" class="form-label">Profesion</label>
+                                                <input type="text" class="form-control" id="validationCustom10" formControlName="detail1" 
+                                                    [ngClass]="{'is-invalid': submit && form['detail1'].errors, 'is-valid': submit && form['detail1'].valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <span *ngSwitchCase="3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="validationCustom08" class="form-label">Codigo de estudiante</label>
+                                                <input type="text" class="form-control" id="validationCustom08" formControlName="detail3" 
+                                                    [ngClass]="{'is-invalid': submit && form['detail3'].errors, 'is-valid': submit && form['detail3'].valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="validationCustom09" class="form-label">Escuela Profesional</label>
+                                                <input type="text" class="form-control"  id="validationCustom09" formControlName="detail2" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail2')?.invalid && validationform.get('detail2')?.touched, 'is-valid': validationform.get('detail2')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="validationCustom010" class="form-label">Facultad</label>
+                                                <input type="text" class="form-control" id="validationCustom10" formControlName="detail1" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail1')?.invalid && validationform.get('detail1')?.touched, 'is-valid': validationform.get('detail1')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <span *ngSwitchCase="4">
+                                        <div class="d-none row">
+                                            <div class="col-6">
+                                                <label for="validationCustom08" class="form-label">Codigo de estudiante</label>
+                                                <input type="text" class="form-control" id="validationCustom08" formControlName="detail3" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail3')?.invalid && validationform.get('detail3')?.touched, 'is-valid': validationform.get('detail3')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="validationCustom09" class="form-label">Escuela Profesional</label>
+                                                <input type="text" class="form-control"  id="validationCustom09" formControlName="detail2"
+                                                    [ngClass]="{'is-invalid': validationform.get('detail2')?.invalid && validationform.get('detail2')?.touched, 'is-valid': validationform.get('detail2')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="validationCustom010" class="form-label">Profesion</label>
+                                                <input type="text" class="form-control" [(ngModel)]="objUserUp.detail1"
+                                                    id="validationCustom10" formControlName="detail1" 
+                                                    [ngClass]="{'is-invalid': validationform.get('detail1')?.invalid && validationform.get('detail1')?.touched, 'is-valid': validationform.get('detail1')?.valid}">
+                                                <div class="valid-feedback">
+                                                    ¡Correcto!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    <span>Error: verificar campo.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <span *ngSwitchDefault class="badge bg-danger">Sin datos</span>
+                                    <div class="col-lg-12 my-2">
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-warning">Guardar</button>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                
+                                
+                            </div>
+                            <!--end row-->
+                        </form>
+
+                    </div>
+                    <div class="tab-pane" id="changePassword" role="tabpanel">
+                        <form [formGroup]="validationCredential" (ngSubmit)="changePassword()">
+                            <div class="row">
+                                <!-- Email -->
+                                <div class="col-12">
+                                    <div>
+                                        <label for="emailInput" class="form-label">Email</label>
+                                        <input
+                                            type="email"
+                                            class="form-control"
+                                            id="emailInput"
+                                            formControlName="email"
+                                            [value]="userLoging.email"
+                                            [ngClass]="{
+                                                'is-invalid': forms['email'].invalid && forms['email'].touched,
+                                                'is-valid': forms['email'].valid
+                                            }"
+                                            placeholder="Ingresa tu correo electrónico"
+                                        />
+                                        <div class="valid-feedback">
+                                            ¡Correcto!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa un correo válido.
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Contraseña antigua -->
+                                <div class="col-12">
+                                    <div>
+                                        <label for="oldpasswordInput" class="form-label">Contraseña antigua*</label>
+                                        <input
+                                            type="password"
+                                            class="form-control"
+                                            id="oldpasswordInput"
+                                            formControlName="password"
+                                            [ngClass]="{
+                                                'is-invalid': forms['password'].invalid && forms['password'].touched,
+                                                'is-valid': forms['password'].valid
+                                            }"
+                                            placeholder="Ingresa la contraseña antigua"
+                                        />
+                                        <div class="valid-feedback">
+                                            ¡Correcto!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa tu contraseña antigua.
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Nueva contraseña -->
+                                <div class="col-12">
+                                    <div>
+                                        <label for="newpasswordInput" class="form-label">Nueva contraseña*</label>
+                                        <input
+                                            type="password"
+                                            class="form-control"
+                                            id="newpasswordInput"
+                                            formControlName="newPassword"
+                                            [ngClass]="{
+                                                'is-invalid': forms['newPassword'].invalid && forms['newPassword'].touched,
+                                                'is-valid': forms['newPassword'].valid
+                                            }"
+                                            placeholder="Ingresa una nueva contraseña"
+                                        />
+                                        <div class="valid-feedback">
+                                            ¡Correcto!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Confirmar contraseña -->
+                                <div class="col-12">
+                                    <div>
+                                        <label for="confirmpasswordInput" class="form-label">Confirmar contraseña*</label>
+                                        <input
+                                            type="password"
+                                            class="form-control"
+                                            id="confirmpasswordInput"
+                                            formControlName="confirmationPassword"
+                                            [ngClass]="{
+                                                'is-invalid': forms['confirmationPassword'].invalid && forms['confirmationPassword'].touched,
+                                                'is-valid': forms['confirmationPassword'].valid
+                                            }"
+                                            placeholder="Confirma tu contraseña"
+                                        />
+                                        <div class="valid-feedback">
+                                            ¡Correcto!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Las contraseñas no coinciden.
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Botón -->
+                                <div class="col-lg-12 my-2">
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-secondary" [disabled]="validationCredential.invalid">
+                                            Cambiar contraseña
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!--end tab-pane-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
+<ng-template #noUser>
+    <p>No se encontraron detalles del usuario.</p>
+  </ng-template>

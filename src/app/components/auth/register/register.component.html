@@ -1,0 +1,199 @@
+<div class="auth-page-wrapper pt-5">
+  <!-- auth page bg -->
+  <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+      <div class="bg-overlay"></div>
+
+      <div class="shape">
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 1440 120">
+              <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+          </svg>
+      </div>
+  </div>
+
+  <!-- auth page content -->
+  <div class="auth-page-content">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="text-center mt-sm-5 mb-4 text-white-50">
+                      <div>
+                        <div class="text-center mb-2">
+                            <img src="assets/images/untrmazul.png" class="img-fluid" alt="" width="220">
+                        </div>
+                      </div>
+                      <p class="mt-3 fs-15 fw-medium">Crear una nueva cuenta, si no eres estudiante UNTRM aun!</p>
+                  </div>
+              </div>
+          </div>
+          <!-- end row -->
+
+          <div class="row justify-content-center">
+              <div class="col-md-12 col-lg-10 col-xl-10">
+                  <div class="card mt-4">
+                      <div class="card-body p-4">
+                          <div class="p-2">
+                              <form class="needs-validation custom-form" novalidate (ngSubmit)="addUser()"
+                                [formGroup]="validationform">
+                                <div class="modal-body pt-2 pb-2 pe-4 px-4">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6">
+                                            <h5 class="fs-14 mb-3 text-muted mt-4">Datos de usuario</h5>
+                                            <div class="row">
+                                                <div class="col-12 mb-2" hidden>
+                                                    <label for="validationCustom01" class="form-label">Id</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="emptyUser.id" value=""
+                                                        id="validationCustom01" required formControlName="id"
+                                                        [ngClass]="{'is-invalid': submit && form['id'].errors, 'is-valid': submit && form['id'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <label for="validationCustom02" class="form-label">Nombres</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="emptyUser.names"
+                                                        id="validationCustom02" required formControlName="names" placeholder="Nombres"
+                                                        [ngClass]="{'is-invalid': submit && form['names'].errors, 'is-valid': submit && form['names'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <label for="validationCustom03" class="form-label">Apellidos</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="emptyUser.lastName"
+                                                        id="validationCustom03" formControlName="lastName" placeholder="Apellidos"
+                                                        [ngClass]="{'is-invalid': submit && form['lastName'].errors, 'is-valid': submit && form['lastName'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <label for="validationCustom04" class="form-label">Dni</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="emptyUser.dni"
+                                                        id="validationCustom04" required formControlName="dni" placeholder="Documento de identidad"
+                                                        [ngClass]="{'is-invalid': submit && form['dni'].errors, 'is-valid': submit && form['dni'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <label for="validationCustom05" class="form-label">Celular</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="emptyUser.contac"
+                                                        id="validationCustom05" required formControlName="contac" placeholder="Numero telefonico"
+                                                        [ngClass]="{'is-invalid': submit && form['contac'].errors, 'is-valid': submit && form['contac'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <label for="validationCustom06" class="form-label">Direccion</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="emptyUser.address"
+                                                        id="validationCustom06" required formControlName="address"  placeholder="Ciudad - Direccion"
+                                                        [ngClass]="{'is-invalid': submit && form['address'].errors, 'is-valid': submit && form['address'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                            </div><!--end div row -->
+                                        </div>
+                                        <div class="col-md-12 col-lg-6">
+                                            <h5 class="fs-14 mb-3 text-muted mt-4">Datos de cuenta</h5>
+                                            <div class="row ">
+                                                <div class="col-12 mb-2">
+                                                    <label for="validationCustom08" class="form-label">Correo electrónico Institucional </label>
+                                                    <input type="email" class="form-control" [(ngModel)]="emptyUser.email"
+                                                        id="validationCustom08" required formControlName="email" placeholder="ingrese un correo electrónico Institucional"
+                                                        [ngClass]="{'is-invalid': submit && form['email'].errors, 'is-valid': submit && form['email'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <label for="validationCustom09" class="form-label">Nombre de usuario</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="emptyUser.nameUser"
+                                                        id="validationCustom09" required formControlName="nameUser" placeholder="ingrese nombre de usuario"
+                                                        [ngClass]="{'is-invalid': submit && form['nameUser'].errors, 'is-valid': submit && form['nameUser'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <label for="validationCustom10" class="form-label">Contraseña</label>
+                                                    <input type="password" class="form-control" [(ngModel)]="emptyUser.password"
+                                                        id="validationCustom10" required formControlName="password" placeholder="ingrese una contraseña"
+                                                        [ngClass]="{'is-invalid': submit && form['password'].errors, 'is-valid': submit && form['password'].valid}">
+                                                    <div class="valid-feedback">
+                                                        ¡Correcto!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        <span>Error: verificar campo.</span>
+                                                    </div>
+                                                </div>
+                                            </div><!--end row -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-muted px-4">Si eres estudiante de la UNTRM, solicita la activacion de tu cuenta, envia un correo a <a href="mailto:soporte@untrm.edu.pe">{{email}}</a>.</p>
+                                <hr>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success ">Registrar</button>
+                                </div>
+                            </form>
+                          </div>
+                      </div>
+                      <!-- end card body -->
+                  </div>
+                  <!-- end card -->
+
+                  <div class="mt-4 text-center">
+                      <p class="mb-0">¿Ya tienes una cuenta? <a routerLink="/auth/login"
+                              class="fw-semibold text-primary text-decoration-underline"> Iniciar sesión</a> </p>
+                  </div>
+
+              </div>
+          </div>
+          <!-- end row -->
+      </div>
+      <!-- end container -->
+  </div>
+  <!-- end auth page content -->
+
+  <!-- footer -->
+  <footer class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="text-center">
+                    <p class="mb-0">&copy; {{year}} OFICINA DE TECNOLOGÍA DE INFORMACIÓN - UNTRM</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </footer>
+  <!-- end Footer -->
+</div>
+<!-- end auth-page-wrapper -->

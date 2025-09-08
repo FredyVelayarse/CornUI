@@ -1,0 +1,24 @@
+.border-custom {
+    border: 2px solid #0d6efd;
+    padding: 20px;
+    border-radius: 10px;
+}
+.header-logo {
+    max-width: 100px;
+}
+.watermark {
+    position: absolute;
+    top: 45%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    opacity: 0.1;
+    font-size: 80px;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+@media print {
+    .no-print, .hide-in-pdf {
+        display: none !important;
+    }
+}

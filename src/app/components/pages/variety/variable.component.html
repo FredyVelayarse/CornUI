@@ -1,0 +1,77 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="{{ title }}" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="row">
+    <div class="col-xxl-12">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Variedades de maiz registradas</h4>
+                <div class="flex-shrink-0">
+                    <button type="button" class="btn btn-info waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#centro"><i class=" ri-add-line"></i>Nuevo Variedad</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="col-12">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-middle table-striped table-responsive  mb-0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 5px; text-align:center">N°</th>
+                                <th style="width: 30px; text-align:center">Identificador</th>
+                                <th class="text-start" style="width: 300px">Nombre denominado</th>
+                                <th style="width: 80px; text-align:center">F. de registro</th>
+                                <th class="text-end" style="width: 115px;">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let variety of varietyList let i = index">
+                                <td class="text-center">{{ i + 1 }}</td>
+                                <td class="text-center">{{ variety.IdVariety }}</td>
+                                <td>{{ variety.NameVariety }}</td>
+                                <td>{{ variety.RegistrationDate | date: 'd \'de\' MMMM\' de\' y'}}</td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-sm btn-secondary btn-animation waves-effect waves-light mb-1 me-1" data-text="Variedad" [routerLink]="['/variety-detail', variety.IdVariety]"><span>Detalle de</span></button>
+                                    <a class="btn btn-danger btn-sm" (click)="deleteVariety(variety.IdVariety)"><i
+                                        class="ri-delete-bin-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="centro" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="validationform" (ngSubmit)="addVariety()" class="needs-validation custom-form" novalidate>
+                <div class="modal-header pb-3">
+                    <h5 class="modal-title" id="myModalLabel">Cargar nueva variedad</h5>
+                    <button id="closeAgregar" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body pt-2 pb-2 pe-4 px-4">
+                    <div class="row">
+                        <!-- Campo de archivo -->
+                        <div class="col-12 mb-2">
+                            <label for="FotoBytes" class="form-label">Subir imagen</label>
+                            <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*">
+                            <div *ngIf="submit && !selectedFile" class="invalid-feedback">
+                                <span>Este campo es obligatorio.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-info" [disabled]="isProcessing">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

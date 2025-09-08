@@ -1,0 +1,272 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="{{ title }}" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row" id="pdfContent">
+    <div class="col-12">
+        <div class="">
+            
+            <div class="row g-0 element-item designing development" >
+                <div class="col-md-6 gallery-box p-0 pe-4 card-border-effect-none border-end">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h5 class="card-title  flex-grow-1 mb-0">{{ detailVariety.NameVariety }}</h5>
+                        </div>
+                        
+    
+                        <div class="card-body">
+                            <div class="row gallery-wrapper ">
+                                <div class="element-item col-xxl-4 col-xl-5 col-sm-6 redonded" *ngFor="let img of imagenVariety">
+                                    <div class="gallery-box">
+                                        <div class="gallery-container">
+                                            <a class="glightbox" [href]="img.PathImagen" title="{{ detailVariety.NameVariety }}" data-gallery="gallery1" data-zoomable="true">
+                                                <img class="gallery-img img-fluid mx-auto" [src]="img.PathImagen" alt="{{ detailVariety.NameVariety }}" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="border p-3">
+                                <div class="d-flex">
+                                    <label  class=" flex-grow-1 mb-0" for="">Geolocalización</label>
+                                    <div class="flex-shrink-0">
+                                        <button type="button" class="btn btn-sm btn-info waves-effect waves-light no-print" data-bs-toggle="modal" data-bs-target="#centro"><i class=" ri-add-line"></i>Nueva Localización</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-text my-2" *ngIf="localitationVariety; else noData">
+                                    <div class="d-flex" *ngFor="let item of localitationVariety">
+                                        <div  class=" flex-grow-1 mb-0" for="">
+                                            <p class="p-0 mx-2" >
+                                                Latitud: {{ item.Latitude }} - Longitud: {{ item.Longitude }}
+                                            </p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <a class="btn btn-sm btn-danger btn-sm" (click)="deleteLocalizacion(item.IdGeolocation)"><i
+                                                class="ri-delete-bin-fill me-2"></i>Eliminar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <ng-template #noData>
+                                <p class="card-text text-muted mx-2">Sin datos registrados</p>
+                                </ng-template>
+        
+                                <label for="">Descripcion</label>
+                                <p class="card-text mx-2">
+                                    {{ detailVariety.Description ? detailVariety.Description : "No hay descripción disponible." }}
+                                </p>
+                                <label class="form-label">Fecha de registro</label>
+                                    <p class="card-text mx-2">
+                                        <small class="text-muted">
+                                            {{ detailVariety.RegistrationDate | date: 'd \'de\' MMMM \'de\' y' }}
+                                        </small>
+                                    </p>
+                                <div class="text-end">
+                                    <button class="btn btn-sm btn-danger me-2 no-print" (click)="generatePDF()"><i class="ri-file-ppt-2-fill me-2"></i> Generar PDF</button>
+                                    <button *ngIf="!showForm" (click)="toggleForm()" class="btn btn-sm btn-primary no-print">
+                                        <i class="ri-edit-line"></i> Editar Descripción
+                                    </button>
+                                </div>
+                                
+                            
+                                <!-- Formulario de edición de descripción, visible solo si showForm es true -->
+                                <form *ngIf="showForm">
+                                    <label class="form-label">Nueva Descripción</label>
+                                    <textarea [(ngModel)]="newDescription" [ngModelOptions]="{standalone: true}" class="form-control mb-3"></textarea>
+                                    <!-- Botón para guardar cambios -->
+                                    <button type="button" (click)="updateDescription()" class="btn btn-sm btn-info me-2">
+                                        <i class="ri-save-line"></i> Guardar
+                                    </button>
+                                    <!-- Botón para cancelar la edición -->
+                                    <button type="button" (click)="toggleForm()" class="btn btn-sm btn-secondary">
+                                        <i class="ri-close-line"></i> Cancelar
+                                    </button>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <div class="row">
+                        <div class="col-12 no-print">
+                            <div class="row">
+                                <div class="col-md-6">
+                                  <app-dispersion-chart-corn 
+                                    [dispersionData]="dispersionDataCorn"
+                                    title="Corn (Mazorcas)"
+                                    color="#FF4560">
+                                  </app-dispersion-chart-corn>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                  <app-dispersion-chart-corn 
+                                    [dispersionData]="dispersionDataHusk"
+                                    title="Husk (Hojas)"
+                                    color="#00E396">
+                                  </app-dispersion-chart-corn>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                  <app-dispersion-chart-corn 
+                                    [dispersionData]="dispersionDataSeed"
+                                    title="Seed (Granos)"
+                                    color="#775DD0">
+                                  </app-dispersion-chart-corn>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title flex-grow-1 mb-0">Propiedades Morfologicas</h5>
+                            <div class="flex-shrink-0">
+                                <div class="d-flex justify-content-end mb-3 ">
+                                    <button class="btn btn-sm btn-primary me-2 no-print" (click)="exportToCSV()">
+                                      <i class="ri-file-download-line"></i> Descargar CSV
+                                    </button>
+                                    <button class="btn btn-sm btn-success no-print" (click)="exportToExcel()">
+                                      <i class="ri-file-excel-2-line"></i> Descargar Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-0 fs-12">
+                            <table class="table align-middle table-striped table-responsive border mb-0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5px; text-align:center">N°</th>
+                                        <th class="text-start" style="width: 80px; text-align:center">Nombre Objeto</th>
+                                        <th  style="width: 20px; text-align:center">Tipo</th>
+                                        <th  style="width: 20px; text-align:center">Ancho</th>
+                                        <th style="width: 20px; text-align:center">Alto</th>
+                                        <th style="width: 20px; text-align:center">Color 1</th>
+                                        <th style="width: 20px; text-align:center">Color 2</th>
+                                        <th style="width: 20px; text-align:center">Color 3</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-simplebar style="max-height: 300px;" class="simplebar-scrollable-y">
+                                    <tr  *ngFor="let corn of detailCorn let i = index">
+                                        <td class="text-center p-1"> {{ i + 1 }} </td>
+                                        <td class="text-center p-1"> {{ corn.NameObject }} </td>
+                                        <td class="text-center p-1"> Corn </td>
+                                        <td class="text-center p-1"> {{ corn.WidthCorn }} cm</td>
+                                        <td class="text-center p-1"> {{ corn.HighCorn }} cm</td>
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(corn.ColorCorn1)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>                            
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(corn.ColorCorn2)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(corn.ColorCorn3)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-light" *ngFor="let husk of detailHusk let i = index">
+                                        <td class="text-center p-1"> {{  i + 1 }} </td>
+                                        <td class="text-center p-1"> {{ husk.NameObject }} </td>
+                                        <td class="text-center p-1"> Husk </td>
+                                        <td class="text-center p-1"> {{ husk.WidthHusk }} cm</td>
+                                        <td class="text-center p-1"> {{ husk.HighHusk }} cm</td>
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(husk.ColorHusk1)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>                            
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(husk.ColorHusk2)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(husk.ColorHusk3)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr *ngFor="let seed of detailSeed let i = index">
+                                        <td class="text-center p-1">  {{ i + 1 }} </td>
+                                        <td class="text-center p-1"> {{ seed.NameObject }} </td>
+                                        <td class="text-center p-1"> Seed </td>
+                                        <td class="text-center p-1"> {{ seed.WidthSeed }} cm</td>
+                                        <td class="text-center p-1"> {{ seed.HighSeed }} cm</td>
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(seed.ColorSeed1)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>                            
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(seed.ColorSeed2)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>
+                                        <td class="text-center p-1">
+                                            <span [style.backgroundColor]="convertBGRtoRGB(seed.ColorSeed3)" 
+                                                  style="padding: 10px; display: inline-block; width: 20px; height: 20px;border-radius:50rem;">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end card -->
+    </div>
+   
+    
+</div>
+
+<div id="centro" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="validationform" class="needs-validation custom-form" novalidate (ngSubmit)="addLocalitation()">
+                <div class="modal-header pb-3">
+                    <h5 class="modal-title">Agregar Geolocalización de la Variedad</h5>
+                    <button id="closeAgregar" type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-2 pb-2 pe-4 px-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Latitude">Latitud</label>
+                                <input type="text" class="form-control" id="Latitude" formControlName="Latitude" required>
+                                <div class="invalid-feedback">
+                                    Ingrese la latitud.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="Longitude">Longitud</label>
+                                <input type="text" class="form-control" id="Longitude" formControlName="Longitude" required>
+                                <div class="invalid-feedback">
+                                    Ingrese la longitud.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-sm  btn-info">Guardar</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>

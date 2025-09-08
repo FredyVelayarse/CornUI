@@ -1,0 +1,225 @@
+<!-- Cabecera de Contenido -->
+<app-breadcrumbs title="{{titulo}}" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <button type="button" class="btn btn-success me-2" (click)="listUser()"><i class="bi bi-database-add me-2"></i>Actualizar</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalAgregar"><i class="bi bi-database-add me-2"></i>Nuevo registro</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive pt-1 pb-3 pe-3 px-3">
+                    <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger"  class="table align-middle table-nowrap mb-0" style="width:100%">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Nombres</th>
+                                <th>Correo</th>
+                                <th>Tipo de Cuenta</th>
+                                <th>Estado</th>
+                                <th>Registro</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let users of userList, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{users.lastName }}, {{users.names }}</td>
+                                <td>{{users.email}}</td>
+                                <td>
+                                    <ng-container [ngSwitch]="users.typeUser">
+                                      <span *ngSwitchCase="1" class="badge bg-primary">Administrador</span>
+                                      <span *ngSwitchCase="2" class="badge bg-info">Director</span>
+                                      <span *ngSwitchCase="3" class="badge bg-warning">Estudiante</span>
+                                      <span *ngSwitchCase="4" class="badge bg-secondary">Docente</span>
+                                      <span *ngSwitchDefault class="badge bg-danger">Inactivo</span>
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <span *ngIf="users.stateUser; else inactivoBadge"
+                                        class="badge bg-success">Activo</span>
+                                    <ng-template #inactivoBadge>
+                                        <span class="badge bg-danger">Inactivo</span>
+                                    </ng-template>
+                                </td>
+                                <td>{{ users.registrationDate | date: 'd \'de\' MMMM \'de\' y' }}</td>
+                                <td [width]="20">
+                                    <a class="btn btn-primary btn-sm me-2" [routerLink]="['/user-detail', users.id]">
+                                        <i class="ri-eye-line"></i>
+                                        </a>
+                                    <a class="btn btn-danger btn-sm" (click)="deleteUser(users.id)"><i
+                                            class="ri-delete-bin-fill"></i>
+                                    </a> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Agregar -->
+<div id="ModalAgregar" class="modal modal-lg fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+    style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="needs-validation custom-form" novalidate (ngSubmit)="addUser()"
+                [formGroup]="validationform">
+                <div class="modal-header bg-light pb-3">
+                    <h5 class="modal-title" id="myModalLabel">Registrar Usuario</h5>
+                    <button id="closeAgregar" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"> </button>
+                </div>
+                <div class="modal-body pt-2 pb-2 pe-4 px-4">
+                    <div class="row  mb-2">
+                        <div class="col-6">
+                            <label for="validationCustom01" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" [(ngModel)]="objUserAdd.names"
+                                id="validationCustom01" required formControlName="names"
+                                [ngClass]="{'is-invalid': submit && form['names'].errors, 'is-valid': submit && form['names'].valid}">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="validationCustom02" class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" [(ngModel)]="objUserAdd.lastName"
+                                id="validationCustom02" formControlName="lastName"
+                                [ngClass]="{'is-invalid': submit && form['lastName'].errors, 'is-valid': submit && form['lastName'].valid}">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="validationCustom03" class="form-label">Nombre de usuario</label>
+                            <input type="text" class="form-control" [(ngModel)]="objUserAdd.nameUser"
+                                id="validationCustom03" formControlName="nameUser"
+                                [ngClass]="{'is-invalid': submit && form['nameUser'].errors, 'is-valid': submit && form['nameUser'].valid}">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="validationCustom04" class="form-label">Contacto</label>
+                            <input type="text" class="form-control" [(ngModel)]="objUserAdd.contac"
+                                id="validationCustom04" formControlName="contac"
+                                [ngClass]="{'is-invalid': submit && form['contac'].errors, 'is-valid': submit && form['contac'].valid}">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="validationCustom05" class="form-label">Documento de identidad</label>
+                            <input type="text" class="form-control" [(ngModel)]="objUserAdd.dni"
+                                id="validationCustom05" formControlName="dni"
+                                [ngClass]="{'is-invalid': submit && form['dni'].errors, 'is-valid': submit && form['dni'].valid}">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="validationCustom06" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" [(ngModel)]="objUserAdd.address"
+                                id="validationCustom06" formControlName="address"
+                                [ngClass]="{'is-invalid': submit && form['address'].errors, 'is-valid': submit && form['address'].valid}">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12 ">
+                            <label for="validationCustom07" class="form-label">Correo Electronico</label>
+                            <input type="text" class="form-control" [(ngModel)]="objUserAdd.email"
+                                id="validationCustom07" required formControlName="email"
+                                [ngClass]="{'is-invalid': submit && form['email'].errors, 'is-valid': submit && form['email'].valid}">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="validationCustom08" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" [(ngModel)]="objUserAdd.password"
+                                id="validationCustom08" formControlName="password"
+                                [ngClass]="{'is-invalid': submit && form['password'].errors, 'is-valid': submit && form['password'].valid}">
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="validationCustom09" class="form-label">Tipo de usuario</label>
+                            <select class="form-control" [(ngModel)]="objUserAdd.typeUser" id="typeUser" required formControlName="typeUser" [ngClass]="{'is-invalid': submit && form['typeUser'].errors, 'is-valid': submit && form['typeUser'].valid}">
+                                <option value="" disabled selected>tipo de usuario ...</option>
+                                <option value="1">Administrador</option>
+                                <option value="3">Estudiante</option>
+                            </select>
+                            <div class="valid-feedback">
+                                ¡Correcto!
+                            </div>
+                            <div class="invalid-feedback">
+                                <span>Error: verificar campo.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" [(ngModel)]="objUserAdd.stateUser"
+                                    id="validationFormCheck1" required formControlName="stateUser"
+                                    [ngClass]="{'is-invalid': submit && form['stateUser'].errors, 'is-valid': submit && form['stateUser'].valid}">
+                                <label class="form-check-label" for="validationFormCheck1">Estado del registro</label>
+                                <div class="valid-feedback">
+                                    ¡Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span>Error: verificar campo.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary ">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
