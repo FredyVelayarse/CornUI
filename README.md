@@ -1,27 +1,71 @@
-# Velzon
+🌌 CornUI - Proyecto Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
+Este repositorio contiene el frontend del proyecto CornUI, desarrollado con Angular.
+El objetivo es proporcionar una interfaz moderna y escalable, conectada a los servicios backend para la gestión de información.
 
-## Development server
+📦 Requisitos previos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Antes de empezar, asegúrate de tener instalado:
 
-## Code scaffolding
+Node.js
+ (versión recomendada: 18.x o superior)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Angular CLI
+ (versión recomendada: 17.x o superior)
 
-## Build
+Verifica tu instalación con:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+node -v
+npm -v
+ng version
 
-## Running unit tests
+🚀 Instalación del proyecto
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Clonar este repositorio:
 
-## Running end-to-end tests
+git clone https://github.com/FredyVelayarse/CornUI.git
+cd CornUI
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+Instalar dependencias:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+npm install
+
+
+Iniciar servidor de desarrollo:
+
+ng serve
+
+
+Luego abre en el navegador:
+
+http://localhost:4200/
+
+⚙️ Scripts disponibles
+
+ng serve → Levanta la aplicación en modo desarrollo.
+
+ng build → Genera los archivos optimizados de producción en la carpeta dist/.
+
+ng test → Ejecuta las pruebas unitarias con Karma.
+
+ng lint → Verifica la calidad del código.
+
+📂 Estructura básica del proyecto
+CornUI/
+ ├── src/               # Código fuente principal
+ │   ├── app/           # Componentes, servicios y módulos
+ │   ├── assets/        # Imágenes, estilos globales, etc.
+ │   └── environments/  # Configuración de entornos
+ ├── angular.json       # Configuración del proyecto Angular
+ ├── package.json       # Dependencias y scripts
+ └── README.md          # Documentación
+
+🌐 Despliegue
+
+Para generar la versión de producción:
+
+ng build --configuration production
+
+
+Los archivos listos estarán en la carpeta dist/.
